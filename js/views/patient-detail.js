@@ -83,17 +83,18 @@ class PatientDetailView {
             type: 'line',
             data: {
                 labels: labels,
-                datasets: [{
-                    label: 'LARS Score',
-                    data: scores,
-                    borderColor: '#667eea',
-                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.4,
-                    pointRadius: 5,
-                    pointHoverRadius: 7,
-                }]
+                datasets: [                    {
+                        label: 'LARS Score',
+                        data: scores,
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        spanGaps: true,
+                    }]
             },
             options: {
                 responsive: true,
@@ -142,17 +143,18 @@ class PatientDetailView {
             type: 'line',
             data: {
                 labels: labels,
-                datasets: [{
-                    label: 'EQ-5D-5L Health VAS',
-                    data: scores,
-                    borderColor: '#f093fb',
-                    backgroundColor: 'rgba(240, 147, 251, 0.1)',
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.4,
-                    pointRadius: 5,
-                    pointHoverRadius: 7,
-                }]
+                datasets: [                    {
+                        label: 'EQ-5D-5L Health VAS',
+                        data: scores,
+                        borderColor: '#f093fb',
+                        backgroundColor: 'rgba(240, 147, 251, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        spanGaps: true,
+                    }]
             },
             options: {
                 responsive: true,
@@ -475,6 +477,9 @@ class PatientDetailView {
                         borderWidth: 3,
                         fill: false,
                         tension: 0.4,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        spanGaps: true,
                         yAxisID: 'y',
                     },
                     {
@@ -485,6 +490,9 @@ class PatientDetailView {
                         borderWidth: 2,
                         fill: false,
                         tension: 0.4,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        spanGaps: true,
                         yAxisID: 'y1',
                     }
                 ]
@@ -622,6 +630,9 @@ class PatientDetailView {
                         borderWidth: 3,
                         fill: false,
                         tension: 0.4,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        spanGaps: true,
                         yAxisID: 'y',
                     },
                     {
@@ -632,6 +643,9 @@ class PatientDetailView {
                         borderWidth: 2,
                         fill: false,
                         tension: 0.4,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        spanGaps: true,
                         yAxisID: 'y1',
                     },
                     {
@@ -642,6 +656,9 @@ class PatientDetailView {
                         borderWidth: 2,
                         fill: false,
                         tension: 0.4,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        spanGaps: true,
                         yAxisID: 'y1',
                     }
                 ]
