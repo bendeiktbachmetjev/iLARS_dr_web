@@ -480,6 +480,7 @@ class PatientDetailView {
                         pointRadius: 5,
                         pointHoverRadius: 7,
                         spanGaps: true,
+                        showLine: true,
                         yAxisID: 'y',
                     },
                     {
@@ -493,6 +494,7 @@ class PatientDetailView {
                         pointRadius: 4,
                         pointHoverRadius: 6,
                         spanGaps: true,
+                        showLine: true,
                         yAxisID: 'y1',
                     }
                 ]
@@ -633,6 +635,7 @@ class PatientDetailView {
                         pointRadius: 5,
                         pointHoverRadius: 7,
                         spanGaps: true,
+                        showLine: true,
                         yAxisID: 'y',
                     },
                     {
@@ -646,6 +649,7 @@ class PatientDetailView {
                         pointRadius: 4,
                         pointHoverRadius: 6,
                         spanGaps: true,
+                        showLine: true,
                         yAxisID: 'y1',
                     },
                     {
@@ -659,6 +663,7 @@ class PatientDetailView {
                         pointRadius: 4,
                         pointHoverRadius: 6,
                         spanGaps: true,
+                        showLine: true,
                         yAxisID: 'y1',
                     }
                 ]
