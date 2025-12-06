@@ -433,21 +433,44 @@ class PatientDetailView {
         const ctx = document.getElementById('lars-food-chart');
         if (!ctx) return;
 
-        // Match LARS scores with daily entries by date
-        const combinedData = [];
-        const larsMap = new Map();
-        larsData.forEach(d => {
-            const dateKey = d.date ? d.date.split('T')[0] : null;
-            if (dateKey) larsMap.set(dateKey, d.score);
-        });
+        // Create sorted LARS entries with timestamps
+        const larsEntries = larsData
+            .map(d => ({
+                date: d.date ? d.date.split('T')[0] : null,
+                timestamp: d.date ? new Date(d.date).getTime() : null,
+                score: d.score
+            }))
+            .filter(d => d.date && d.timestamp)
+            .sort((a, b) => a.timestamp - b.timestamp);
 
-        // Aggregate food consumption by date and match with LARS
+        // Helper function to find nearest LARS score for a given date
+        const findNearestLarsScore = (targetDate) => {
+            const targetTimestamp = new Date(targetDate).getTime();
+            
+            // Find the most recent LARS score that is <= target date
+            let nearestScore = null;
+            let nearestTimestamp = null;
+            
+            for (const larsEntry of larsEntries) {
+                if (larsEntry.timestamp <= targetTimestamp) {
+                    if (!nearestTimestamp || larsEntry.timestamp > nearestTimestamp) {
+                        nearestScore = larsEntry.score;
+                        nearestTimestamp = larsEntry.timestamp;
+                    }
+                }
+            }
+            
+            return nearestScore;
+        };
+
+        // Aggregate food consumption by date and match with nearest LARS
+        const combinedData = [];
         dailyData.forEach(d => {
             const dateKey = d.date ? d.date.split('T')[0] : null;
             if (dateKey) {
-                const totalFood = Object.values(d.food).reduce((sum, val) => sum + (val || 0), 0);
-                const larsScore = larsMap.get(dateKey);
-                if (larsScore !== undefined) {
+                const totalFood = Object.values(d.food || {}).reduce((sum, val) => sum + (val || 0), 0);
+                const larsScore = findNearestLarsScore(dateKey);
+                if (larsScore !== null) {
                     combinedData.push({
                         date: dateKey,
                         lars: larsScore,
@@ -571,20 +594,43 @@ class PatientDetailView {
         const ctx = document.getElementById('lars-symptoms-chart');
         if (!ctx) return;
 
-        // Match LARS scores with daily entries by date
-        const combinedData = [];
-        const larsMap = new Map();
-        larsData.forEach(d => {
-            const dateKey = d.date ? d.date.split('T')[0] : null;
-            if (dateKey) larsMap.set(dateKey, d.score);
-        });
+        // Create sorted LARS entries with timestamps
+        const larsEntries = larsData
+            .map(d => ({
+                date: d.date ? d.date.split('T')[0] : null,
+                timestamp: d.date ? new Date(d.date).getTime() : null,
+                score: d.score
+            }))
+            .filter(d => d.date && d.timestamp)
+            .sort((a, b) => a.timestamp - b.timestamp);
 
-        // Match daily symptoms with LARS
+        // Helper function to find nearest LARS score for a given date
+        const findNearestLarsScore = (targetDate) => {
+            const targetTimestamp = new Date(targetDate).getTime();
+            
+            // Find the most recent LARS score that is <= target date
+            let nearestScore = null;
+            let nearestTimestamp = null;
+            
+            for (const larsEntry of larsEntries) {
+                if (larsEntry.timestamp <= targetTimestamp) {
+                    if (!nearestTimestamp || larsEntry.timestamp > nearestTimestamp) {
+                        nearestScore = larsEntry.score;
+                        nearestTimestamp = larsEntry.timestamp;
+                    }
+                }
+            }
+            
+            return nearestScore;
+        };
+
+        // Match daily symptoms with nearest LARS
+        const combinedData = [];
         dailyData.forEach(d => {
             const dateKey = d.date ? d.date.split('T')[0] : null;
             if (dateKey) {
-                const larsScore = larsMap.get(dateKey);
-                if (larsScore !== undefined) {
+                const larsScore = findNearestLarsScore(dateKey);
+                if (larsScore !== null) {
                     combinedData.push({
                         date: dateKey,
                         lars: larsScore,
