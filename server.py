@@ -61,8 +61,13 @@ class StaticHandler(SimpleHTTPRequestHandler):
             self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
             self.send_header('Pragma', 'no-cache')
             self.send_header('Expires', '0')
+        elif self.path.endswith('.js') or self.path.endswith('.css'):
+            # Don't cache JS and CSS files to ensure updates are picked up
+            self.send_header('Cache-Control', 'no-cache, must-revalidate')
+            self.send_header('Pragma', 'no-cache')
+            self.send_header('Expires', '0')
         else:
-            # Cache static assets
+            # Cache other static assets
             self.send_header('Cache-Control', 'public, max-age=31536000')
         
         super().end_headers()
